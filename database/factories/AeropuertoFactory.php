@@ -17,7 +17,7 @@ class AeropuertoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'codigo' => fake()->lexify('???') // '42jz'
         ];
     }
 }

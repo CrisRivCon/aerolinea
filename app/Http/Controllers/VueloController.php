@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVueloRequest;
 use App\Http\Requests\UpdateVueloRequest;
+use App\Models\Aeropuerto;
+use App\Models\Companya;
 use App\Models\Vuelo;
 
 class VueloController extends Controller
@@ -13,7 +15,10 @@ class VueloController extends Controller
      */
     public function index()
     {
-        //
+        $vuelos = Vuelo::all();
+        return view('vuelos.index', [
+            'vuelos' => $vuelos,
+        ]);
     }
 
     /**
@@ -21,7 +26,13 @@ class VueloController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Vuelo::class);
+
+        return view('vuelos.create', [
+            'companyas' => Companya::all(),
+            'aeropuertos' => Aeropuerto::all(),
+        ]);
+
     }
 
     /**
@@ -29,7 +40,9 @@ class VueloController extends Controller
      */
     public function store(StoreVueloRequest $request)
     {
-        //
+        $this->authorize('create', Vuelo::class);
+        $vuelo = new Vuelo();
+        $vuelo->create($request);
     }
 
     /**

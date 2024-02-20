@@ -13,7 +13,7 @@ class VueloPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class VueloPolicy
      */
     public function view(User $user, Vuelo $vuelo): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class VueloPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user != null;
     }
 
     /**
@@ -37,7 +37,7 @@ class VueloPolicy
      */
     public function update(User $user, Vuelo $vuelo): bool
     {
-        //
+        return $user != null;
     }
 
     /**
