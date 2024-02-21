@@ -29,7 +29,7 @@ class VueloPolicy
      */
     public function create(User $user): bool
     {
-        return $user != null;
+        return $user->id > 0;
     }
 
     /**
@@ -45,7 +45,7 @@ class VueloPolicy
      */
     public function delete(User $user, Vuelo $vuelo): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -53,7 +53,7 @@ class VueloPolicy
      */
     public function restore(User $user, Vuelo $vuelo): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -61,6 +61,6 @@ class VueloPolicy
      */
     public function forceDelete(User $user, Vuelo $vuelo): bool
     {
-        //
+        return false;
     }
 }

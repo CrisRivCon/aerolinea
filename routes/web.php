@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\VueloController;
+use App\Models\Vuelo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return view('vuelos.index', [
+        'vuelos' => Vuelo::all(),
+    ]);
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

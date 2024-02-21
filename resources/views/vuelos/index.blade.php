@@ -81,8 +81,10 @@
                 @endforeach
             </tbody>
         </table>
+        @can('create', App\Models\Vuelo::class)
         <form action="{{ route('vuelos.create') }}" class="flex justify-center mt-4 mb-4">
             <x-primary-button class="bg-green-500">Insertar un nuevo vuelo</x-primary-button>
         </form>
+        @endcan
     </div>
 </x-app-layout>
