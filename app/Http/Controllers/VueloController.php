@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateVueloRequest;
 use App\Models\Aeropuerto;
 use App\Models\Companya;
 use App\Models\Vuelo;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VueloController extends Controller
 {
@@ -26,6 +28,10 @@ class VueloController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()){
+            return redirect()->route('login');
+        };
+
         $this->authorize('create', Vuelo::class);
 
         return view('vuelos.create', [
@@ -40,9 +46,15 @@ class VueloController extends Controller
      */
     public function store(StoreVueloRequest $request)
     {
+        if ($request->user()->cannot('create', Vuelo::class)){
+            return redirect('login');
+        };
+
         $this->authorize('create', Vuelo::class);
-        $vuelo = new Vuelo();
-        $vuelo->create($request);
+
+        $validate = $request->validated();
+        $vuelo = Vuelo::create($validate);
+        return redirect()->route('/');
     }
 
     /**

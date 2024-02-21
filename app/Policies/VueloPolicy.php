@@ -29,7 +29,7 @@ class VueloPolicy
      */
     public function create(User $user): bool
     {
-        return $user->id > 0;
+        return $user != null;
     }
 
     /**
@@ -37,7 +37,7 @@ class VueloPolicy
      */
     public function update(User $user, Vuelo $vuelo): bool
     {
-        return $user != null;
+        return $vuelo->user == $user;
     }
 
     /**

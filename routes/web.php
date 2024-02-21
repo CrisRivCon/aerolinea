@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\VueloController;
 use App\Models\Vuelo;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,8 @@ Route::get('/', function () {
     return view('vuelos.index', [
         'vuelos' => Vuelo::all(),
     ]);
-});
+})
+->name('/');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -30,5 +32,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::resource('vuelos', VueloController::class);
+Route::resource('reservas', ReservaController::class)
+->middleware('auth');
 
 require __DIR__.'/auth.php';

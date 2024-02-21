@@ -11,11 +11,11 @@ class Vuelo extends Model
 
     protected $fillable = [
         'codigo',
-        'id_aeropuerto_origen',
-        'id_aeropuerto_destino',
-        'id_companya',
-        'fecha_salida',
-        'fecha_llegada',
+        'origen_id',
+        'destino_id',
+        'companya_id',
+        'salida',
+        'llegada',
         'plazas',
         'precio'
     ];
@@ -26,10 +26,19 @@ class Vuelo extends Model
     }
     public function aeropuertoOrigen()
     {
-        return $this->belongsTo(Aeropuerto::class, 'id_aeropuerto_origen');
+        return $this->belongsTo(Aeropuerto::class, 'origen_id');
     }
     public function aeropuertoDestino()
     {
-        return $this->belongsTo(Aeropuerto::class, 'id_aeropuerto_destino');
+        return $this->belongsTo(Aeropuerto::class, 'destino_id');
+    }
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class);
+    }
+
+    public function plazasDisponibles()
+    {
+        return $this->plazas - count($this->reservas);
     }
 }

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_vuelo')->constrained('vuelos');
-            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('vuelo_id')->constrained('vuelos');
+            $table->foreignId('user_id')->constrained('users');
             $table->integer('asiento');
             $table->timestamps();
+            $table->unique(['vuelo_id', 'asiento']);
         });
     }
 

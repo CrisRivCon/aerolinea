@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreVueloRequest extends FormRequest
 {
@@ -22,7 +23,15 @@ class StoreVueloRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'codigo' => 'string|alpha_num|regex:/^[a-zA-Z]{3}[0-9]{4}$/i|required',
+            'origen_id' => 'integer|exists:aeropuertos,id|required',
+            'destino_id' => 'integer|different:origen_id|exists:aeropuertos,id|required',
+            'companya_id' => 'integer|exists:companyas,id|required',
+            'salida' => 'date|required',
+            'llegada' => 'date|different:salida|required',
+            'plazas' => 'integer|required',
+            'precio' => 'decimal:2|required'
+
         ];
     }
 }
