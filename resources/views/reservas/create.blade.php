@@ -1,32 +1,47 @@
 <x-app-layout>
     <div class="w-1/2 mx-auto">
-        <form method="POST" action="{{ route('reservas.store') }}">
+        <form method="POST" action="{{ route('guardar_reserva', ['vuelo' => $vuelo]) }}">
             @csrf
 
-            <!-- Nombre -->
+            <!-- Codigo vuelo -->
             <div>
                 <x-input-label for="codigo" :value="'Código del vuelo'" />
-                <x-text-input id="codigo" class="block mt-1 w-full"
-                    type="text" name="codigo" :value="old('codigo')" required
-                    autofocus autocomplete="codigo" />
-                <x-input-error :messages="$errors->get('codigo')" class="mt-2" />
+
+                <input id="vuelo_id" class="block mt-1 w-full"
+                    type="hidden" name="vuelo_id" value="{{$vuelo->id}}" required
+                    autofocus autocomplete="vuelo_id"/>
+
+                    <input id="user_id" class="block mt-1 w-full"
+                    type="hidden" name="user_id" value="{{Auth::user()->id}}" required
+                    autofocus autocomplete="user_id"/>
+
+                <input id="codigo" class="block mt-1 w-full"
+                    type="text" name="codigo" value="{{$vuelo->codigo}}"
+                    autocomplete="codigo" disabled/>
             </div>
-            <!-- Plazas totales -->
+            <!-- Plazas Disponibles -->
             <div class="mt-4">
-                <x-input-label for="plazas" :value="'Plazas disponibles'" />
-                <x-text-input id="plazas" class="block mt-1 w-full"
-                    type="text" name="plazas" :value="old('plazas')" required
-                    autofocus autocomplete="plazas" />
-                <x-input-error :messages="$errors->get('plazas')" class="mt-2" />
+                <x-input-label for="asiento" :value="'Plazas disponibles'" />
+                <select id="asiento"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                    name="asiento" required>
+                    @foreach (range(1,$vuelo->plazas) as $asiento)
+                        <option value="{{ $asiento }}"
+                            {{ old('asiento') == $asiento ? 'selected' : '' }}
+                            >
+                            {{ $asiento }}
+                        </option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('asiento')" class="mt-2" />
             </div>
 
             <!-- Precio -->
             <div class="mt-4">
                 <x-input-label for="precio" :value="'Precio del vuelo'" />
-                <x-text-input id="precio" class="block mt-1 w-full"
-                    type="text" name="precio" :value="old('precio')" required
-                    autofocus autocomplete="precio" />
-                <x-input-error :messages="$errors->get('precio')" class="mt-2" />
+                <input id="precio" class="block mt-1 w-full"
+                    type="text" name="precio" value="{{$vuelo->precio}}" required
+                    autofocus autocomplete="precio" disabled/>
             </div>
 
 

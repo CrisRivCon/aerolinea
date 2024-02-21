@@ -11,7 +11,7 @@ class StoreReservaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreReservaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'vuelo_id' => 'integer|exists:vuelos,id|required',
+            'user_id' => 'integer|exists:users,id|required',
+            'asiento' => 'integer|required',
         ];
     }
 }

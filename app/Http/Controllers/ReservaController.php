@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReservaRequest;
 use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Reserva;
 use App\Models\Vuelo;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
@@ -14,7 +15,10 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', Reserva::class);
+        return view('reservas.index', [
+            'reservas' => Auth::user()->reservas,
+        ]);
     }
 
     /**
@@ -22,6 +26,8 @@ class ReservaController extends Controller
      */
     public function create(Vuelo $vuelo)
     {
+        $this->authorize('create', Reserva::class);
+
         return view('reservas.create', [
             'vuelo' => $vuelo,
         ]);
@@ -32,7 +38,13 @@ class ReservaController extends Controller
      */
     public function store(StoreReservaRequest $request)
     {
-        //
+        $this->authorize('create', Reserva::class);
+
+        $validate = $request->validated();
+        Reserva::create($validate);
+
+        return redirect()->route('reservas');
+
     }
 
     /**

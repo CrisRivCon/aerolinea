@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\VueloController;
+use App\Models\Reserva;
 use App\Models\Vuelo;
 use Illuminate\Support\Facades\Route;
 
@@ -23,16 +24,23 @@ Route::get('/', function () {
 })
 ->name('/');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
 Route::resource('vuelos', VueloController::class);
-Route::resource('reservas', ReservaController::class)
+
+Route::get('/reservas/{vuelo}', [ReservaController::class, 'create'])
+->name('reservar')
+->middleware('auth');
+
+Route::post('/reservas/{vuelo}', [ReservaController::class, 'store'])
+->name('guardar_reserva')
+->middleware('auth');
+
+Route::get('/reservas', [ReservaController::class, 'index'])
+->name('reservas')
 ->middleware('auth');
 
 require __DIR__.'/auth.php';
