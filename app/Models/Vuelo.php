@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\UseItem;
 
 class Vuelo extends Model
 {
@@ -41,4 +42,34 @@ class Vuelo extends Model
     {
         return $this->plazas - count($this->reservas);
     }
+
+    public function completo()
+    {
+        return $this->plazasDisponibles() == 0;
+    }
+
+    public function asientos()
+    {
+        return range(1,$this->plazas);
+    }
+
+    public function asientosReservados()
+    {
+        $asientos = function($reserva)
+        {
+            return $reserva->asiento;
+        };
+
+        $reservas = $this->reservas->all();
+
+        $reservados = array_map($asientos, $reservas);
+
+        return $reservados;
+    }
+
+    public function esta_reservado($asiento)
+    {
+        return in_array($asiento, $this->asientosReservados());
+    }
+
 }

@@ -28,6 +28,10 @@ class ReservaController extends Controller
     {
         $this->authorize('create', Reserva::class);
 
+        if ($vuelo->completo()) {
+            return redirect()->route('/');
+        }
+
         return view('reservas.create', [
             'vuelo' => $vuelo,
         ]);

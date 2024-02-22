@@ -79,6 +79,7 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$vuelo->llegada}}
                         </th>
+                        @if (!$vuelo->completo())
 
                         <td class="px-6 py-4">
                             <a href="{{ route('reservar', ['vuelo' => $vuelo]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -87,6 +88,13 @@
                                 </x-primary-button>
                             </a>
                         </td>
+                        @else
+                        <td class="px-6 py-4">
+                                <x-primary-button disabled>
+                                    COMPLETO
+                                </x-primary-button>
+                        </td>
+                        @endif
                         <td class="px-6 py-4">
                             <a href="{{ route('vuelos.edit', ['vuelo' => $vuelo]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                 <x-primary-button>

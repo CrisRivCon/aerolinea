@@ -25,9 +25,10 @@
                 <select id="asiento"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
                     name="asiento" required>
-                    @foreach (range(1,$vuelo->plazas) as $asiento)
+                    @foreach ($vuelo->asientos() as $asiento)
                         <option value="{{ $asiento }}"
                             {{ old('asiento') == $asiento ? 'selected' : '' }}
+                            {{ $vuelo->esta_reservado($asiento) ? 'disabled' : '' }}
                             >
                             {{ $asiento }}
                         </option>
