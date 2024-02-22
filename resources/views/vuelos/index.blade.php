@@ -4,7 +4,9 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                         Código vuelo
+                        </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -22,10 +24,14 @@
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                         Plazas totales
+                        </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                         Plazas disponibles
+                        </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">

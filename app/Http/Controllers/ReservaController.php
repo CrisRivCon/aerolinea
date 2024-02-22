@@ -44,6 +44,11 @@ class ReservaController extends Controller
     {
         $this->authorize('create', Reserva::class);
 
+        $vuelo = Vuelo::find($request->vuelo_id);
+        if($vuelo->completo()) {
+            return redirect()->route('/');
+        }
+
         $validate = $request->validated();
         Reserva::create($validate);
 
@@ -56,7 +61,9 @@ class ReservaController extends Controller
      */
     public function show(Reserva $reserva)
     {
-        //
+        return view('reservas.show', [
+            'reserva' => $reserva,
+        ]);
     }
 
     /**

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('origen_id')->constrained('aeropuertos');
             $table->foreignId('destino_id')->constrained('aeropuertos');
             $table->foreignId('companya_id')->constrained('companyas');
-            $table->date('salida');
-            $table->date('llegada');
+            $table->dateTime('salida');
+            $table->dateTime('llegada');
             $table->integer('plazas');
             $table->decimal('precio', 6, 2);
             $table->timestamps();

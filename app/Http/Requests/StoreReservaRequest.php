@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Vuelo;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreReservaRequest extends FormRequest
 {
@@ -24,7 +26,11 @@ class StoreReservaRequest extends FormRequest
         return [
             'vuelo_id' => 'integer|exists:vuelos,id|required',
             'user_id' => 'integer|exists:users,id|required',
-            'asiento' => 'integer|required',
+            'asiento' => [
+                'integer',
+                'required',
+                Rule::notIn(Vuelo::find($this->vuelo_id)->asientosReservados()),
+            ],
         ];
     }
 }

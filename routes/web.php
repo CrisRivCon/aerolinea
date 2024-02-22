@@ -43,4 +43,8 @@ Route::get('/reservas', [ReservaController::class, 'index'])
 ->name('reservas')
 ->middleware('auth');
 
+Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])
+->name('reserva')
+->middleware('auth');
+
 require __DIR__.'/auth.php';

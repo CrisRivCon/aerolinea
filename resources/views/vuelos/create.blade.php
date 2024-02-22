@@ -80,7 +80,7 @@
             <!-- Fecha salida -->
             <div class="mt-4">
                 <x-input-label for="salida" :value="'Fecha salida'" />
-                <input type="date" name="salida" id="salida" value="old('salida')">
+                <input type="datetime-local" name="salida" id="salida" value="old('salida')">
                 <x-input-error :messages="$errors->get('salida')"  class="mt-2" />
             </div>
             <!-- Fecha llegada -->

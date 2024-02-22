@@ -53,7 +53,7 @@ class VueloController extends Controller
         $this->authorize('create', Vuelo::class);
 
         $validate = $request->validated();
-        $vuelo = Vuelo::create($validate);
+        Vuelo::create($validate);
         return redirect()->route('/');
     }
 
