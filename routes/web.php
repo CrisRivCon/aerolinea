@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('vuelos.index', [
         'vuelos' => Vuelo::with(['aeropuertoDestino', 'aeropuertoOrigen', 'companya'])
                             ->orderBy('codigo')
-                            ->get(),
+                            ->paginate(5),
         'order' => 'vuelos.codigo',
         'order_dir' => 'asc',
     ]);

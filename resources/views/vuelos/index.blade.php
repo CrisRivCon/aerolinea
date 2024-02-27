@@ -127,5 +127,6 @@
             <x-primary-button class="bg-cyan-500 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300">Insertar un nuevo vuelo</x-primary-button>
         </form>
         @endcan
+        {{ $vuelos->links() }}
     </div>
 </x-app-layout>
