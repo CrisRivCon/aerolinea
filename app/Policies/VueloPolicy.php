@@ -37,7 +37,7 @@ class VueloPolicy
      */
     public function update(User $user, Vuelo $vuelo): bool
     {
-        return $vuelo->user == $user;
+        return $user != null;
     }
 
     /**
@@ -45,7 +45,7 @@ class VueloPolicy
      */
     public function delete(User $user, Vuelo $vuelo): bool
     {
-        return false;
+        return $user != null;
     }
 
     /**

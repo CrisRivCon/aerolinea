@@ -1,31 +1,28 @@
 <x-app-layout>
     <div class="w-1/2 mx-auto">
-        <form method="POST" action="{{ route('vuelos.store') }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('vuelos.store') }}">
             @csrf
 
             <!-- Nombre -->
             <div>
                 <x-input-label for="codigo" :value="'Código del vuelo'" />
-                <x-text-input id="codigo" class="block mt-1 w-full"
-                    type="text" name="codigo" :value="old('codigo')" required
-                    autofocus autocomplete="codigo" />
+                <x-text-input id="codigo" class="block mt-1 w-full" type="text" name="codigo" :value="old('codigo')"
+                    required autofocus autocomplete="codigo" />
                 <x-input-error :messages="$errors->get('codigo')" class="mt-2" />
             </div>
             <!-- Plazas totales -->
             <div class="mt-4">
                 <x-input-label for="plazas" :value="'Plazas disponibles'" />
-                <x-text-input id="plazas" class="block mt-1 w-full"
-                    type="text" name="plazas" :value="old('plazas')" required
-                    autofocus autocomplete="plazas" />
+                <x-text-input id="plazas" class="block mt-1 w-full" type="text" name="plazas" :value="old('plazas')"
+                    required autofocus autocomplete="plazas" />
                 <x-input-error :messages="$errors->get('plazas')" class="mt-2" />
             </div>
 
             <!-- Precio -->
             <div class="mt-4">
                 <x-input-label for="precio" :value="'Precio del vuelo'" />
-                <x-text-input id="precio" class="block mt-1 w-full"
-                    type="text" name="precio" :value="old('precio')" required
-                    autofocus autocomplete="precio" />
+                <x-text-input id="precio" class="block mt-1 w-full" type="text" name="precio" :value="old('precio')"
+                    required autofocus autocomplete="precio" />
                 <x-input-error :messages="$errors->get('precio')" class="mt-2" />
             </div>
             <!-- Compañia -->
@@ -35,9 +32,7 @@
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
                     name="companya_id" required>
                     @foreach ($companyas as $companya)
-                        <option value="{{ $companya->id }}"
-                            {{ old('companya_id') == $companya->id ? 'selected' : '' }}
-                            >
+                        <option value="{{ $companya->id }}" {{ old('companya_id') == $companya->id ? 'selected' : '' }}>
                             {{ $companya->nombre }}
                         </option>
                     @endforeach
@@ -52,8 +47,7 @@
                     name="origen_id" required>
                     @foreach ($aeropuertos as $aeropuerto)
                         <option value="{{ $aeropuerto->id }}"
-                            {{ old('origen_id') == $aeropuerto->id ? 'selected' : '' }}
-                            >
+                            {{ old('origen_id') == $aeropuerto->id ? 'selected' : '' }}>
                             {{ $aeropuerto->codigo }}
                         </option>
                     @endforeach
@@ -68,8 +62,7 @@
                     name="destino_id" required>
                     @foreach ($aeropuertos as $aeropuerto)
                         <option value="{{ $aeropuerto->id }}"
-                            {{ old('destino_id') == $aeropuerto->id ? 'selected' : '' }}
-                            >
+                            {{ old('destino_id') == $aeropuerto->id ? 'selected' : '' }}>
                             {{ $aeropuerto->codigo }}
                         </option>
                     @endforeach
@@ -78,17 +71,24 @@
             </div>
 
             <!-- Fecha salida -->
-            <div class="mt-4">
-                <x-input-label for="salida" :value="'Fecha salida'" />
-                <input type="datetime-local" name="salida" id="salida" value="old('salida')">
-                <x-input-error :messages="$errors->get('salida')"  class="mt-2" />
-            </div>
-            <!-- Fecha llegada -->
-            <div class="mt-4">
-                <x-input-label for="llegada" :value="'Fecha llegada'" />
-                <input type="datetime-local" name="llegada" id="llegada" value="old('llegada')">
-
-                <x-input-error :messages="$errors->get('llegada')" class="mt-2" />
+            <div class="mt-4 flex">
+                <div class="mt-4 mr-4">
+                    <x-input-label for="salida" :value="'Fecha salida'" />
+                    <input type="datetime-local" name="salida" id="salida"
+                        value="{{ old('salida', Carbon\Carbon::now()) }}">
+                    <x-input-error :messages="$errors->get('salida')" class="mt-2" />
+                </div>
+                <div class="mt-4 mr-4">
+                    <x-input-label for="llegada" :value="'Fecha llegada'" />
+                    <input type="datetime-local" name="llegada" id="llegada"
+                        value="{{ old('llegada', Carbon\Carbon::now()) }}">
+                    <x-input-error :messages="$errors->get('llegada')" class="mt-2" />
+                </div>
+                <div class="mt-4">
+                    <x-input-label for="imagen" :value="'Imagen'" />
+                    <input type="file" name="imagen" id="imagen" value="{{ old('imagen') }}">
+                    <x-input-error :messages="$errors->get('imagen')" class="mt-2" />
+                </div>
             </div>
 
             <div class="flex items-center justify-end mt-4">
