@@ -27,7 +27,8 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::resource('vuelos', VueloController::class);
+Route::resource('vuelos', VueloController::class)
+->middleware('auth');
 
 Route::get('/reservas/{vuelo}', [ReservaController::class, 'create'])
 ->name('reservar')

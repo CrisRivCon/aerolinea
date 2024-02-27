@@ -25,7 +25,7 @@ class Paginaincio extends Component
         [
             'vuelos' => Vuelo::with(['aeropuertoDestino', 'aeropuertoOrigen', 'companya'])
                                 ->whereRaw("lower(vuelos.codigo) LIKE lower('%".$this->busqueda."%')")
-                                ->paginate(4)
+                                ->paginate(6)
         ]);
     }
 }

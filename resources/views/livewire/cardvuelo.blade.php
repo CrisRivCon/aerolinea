@@ -1,5 +1,5 @@
 <div class="p-5">
-    <div class="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
+    <div class="px-2 items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
             <img class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg"
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">

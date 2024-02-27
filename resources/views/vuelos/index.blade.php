@@ -80,10 +80,10 @@
                             {{$vuelo->precio}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$vuelo->salida}}
+                            {{fecha_hora($vuelo->salida)}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$vuelo->llegada}}
+                            {{fecha_hora($vuelo->llegada)}}
                         </th>
                         @if (!$vuelo->completo())
 
