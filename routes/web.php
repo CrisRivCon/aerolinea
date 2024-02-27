@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('vuelos.index', [
-        'vuelos' => Vuelo::all(),
+        'vuelos' => Vuelo::with(['aeropuertoDestino', 'aeropuertoOrigen', 'companya'])
+                            ->orderBy('codigo')
+                            ->get(),
+        'order' => 'vuelos.codigo',
+        'order_dir' => 'asc',
     ]);
 })
 ->name('/');
@@ -43,7 +47,7 @@ Route::get('/reservas', [ReservaController::class, 'index'])
 ->name('reservas')
 ->middleware('auth');
 
-Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])
+Route::get('/reserva/{reserva}', [ReservaController::class, 'show'])
 ->name('reserva')
 ->middleware('auth');
 

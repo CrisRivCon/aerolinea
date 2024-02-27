@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateVueloRequest;
 use App\Models\Aeropuerto;
 use App\Models\Companya;
 use App\Models\Vuelo;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VueloController extends Controller
@@ -15,11 +15,26 @@ class VueloController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vuelos = Vuelo::all();
+        $order = $request->query('order', 'vuelos.codigo');
+
+        $order_dir = $request->query('order_dir', 'asc');
+        $vuelos = Vuelo::with(['aeropuertoOrigen', 'aeropuertoDestino', 'companya'])
+                        ->selectRaw('vuelos.*, companyas.nombre, aeropuertos.codigo as aero_cod,
+                                     (vuelos.plazas - (SELECT COUNT(reservas.id)
+                                                        FROM reservas
+                                                        WHERE reservas.vuelo_id = vuelos.id)) as disponibles')
+                        ->leftJoin('aeropuertos', 'vuelos.origen_id', '=', 'aeropuertos.id')
+                        ->leftJoin('companyas', 'vuelos.companya_id', '=', 'companyas.id')
+                        ->orderBy($order, $order_dir)
+                        ->orderBy('vuelos.codigo')
+                        ->paginate(5);
+
         return view('vuelos.index', [
             'vuelos' => $vuelos,
+            'order' => $order,
+            'order_dir' => $order_dir,
         ]);
     }
 

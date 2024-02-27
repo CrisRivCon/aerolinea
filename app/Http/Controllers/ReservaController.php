@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservaRequest;
 use App\Http\Requests\UpdateReservaRequest;
+use App\Mail\VueloReservado;
 use App\Models\Reserva;
 use App\Models\Vuelo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
 {
@@ -50,7 +52,8 @@ class ReservaController extends Controller
         }
 
         $validate = $request->validated();
-        Reserva::create($validate);
+        $reserva = Reserva::create($validate);
+        Mail::to($request->user())->send(new VueloReservado($reserva));
 
         return redirect()->route('reservas');
 

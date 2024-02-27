@@ -4,48 +4,48 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Código vuelo
+                        <a href="{{ route('vuelos.index', ['order' => 'vuelos.codigo', 'order_dir' => order_dir($order == 'vuelos.codigo', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        Código vuelo {{order_dir_arrow($order == 'vuelos.codigo', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Compañia
+                        <a href="{{ route('vuelos.index', ['order' => 'companyas.nombre', 'order_dir' => order_dir($order == 'companyas.nombre', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Compañia {{order_dir_arrow($order == 'companyas.nombre', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Aeropuerto destino
+                        <a href="{{ route('vuelos.index', ['order' => 'aero_cod', 'order_dir' => order_dir($order == 'aero_cod', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Aeropuerto destino {{order_dir_arrow($order == 'aero_cod', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Aeropuerto origen
+                        <a href="{{ route('vuelos.index', ['order' => 'origen_id', 'order_dir' => order_dir($order == 'origen_id', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Aeropuerto origen {{order_dir_arrow($order == 'origen_id', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Plazas totales
+                        <a href="{{ route('vuelos.index', ['order' => 'plazas', 'order_dir' => order_dir($order == 'plazas', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        Plazas totales {{order_dir_arrow($order == 'plazas', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Plazas disponibles
+                        <a href="{{ route('vuelos.index', ['order' => 'disponibles', 'order_dir' => order_dir($order == 'disponibles', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        Plazas disponibles {{order_dir_arrow($order == 'disponibles', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Precio
+                        <a href="{{ route('vuelos.index', ['order' => 'precio', 'order_dir' => order_dir($order == 'precio', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Precio {{order_dir_arrow($order == 'precio', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Hora salida
+                        <a href="{{ route('vuelos.index', ['order' => 'salida', 'order_dir' => order_dir($order == 'salida', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Hora salida {{order_dir_arrow($order == 'salida', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Hora llegada
+                        <a href="{{ route('vuelos.index', ['order' => 'llegada', 'order_dir' => order_dir($order == 'llegada', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Hora llegada {{order_dir_arrow($order == 'llegada', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3 text-center" colspan="3">
@@ -102,8 +102,8 @@
                         </td>
                         @endif
                         <td class="px-6 py-4">
-                            <a href="{{ route('vuelos.edit', ['vuelo' => $vuelo]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                <x-primary-button>
+                            <a href="{{ route('vuelos.edit', ['vuelo' => $vuelo]) }}">
+                                <x-primary-button class="bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300">
                                     Editar
                                 </x-primary-button>
                             </a>
@@ -124,7 +124,7 @@
         </table>
         @can('create', App\Models\Vuelo::class)
         <form action="{{ route('vuelos.create') }}" class="flex justify-center mt-4 mb-4">
-            <x-primary-button class="bg-green-500">Insertar un nuevo vuelo</x-primary-button>
+            <x-primary-button class="bg-cyan-500 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300">Insertar un nuevo vuelo</x-primary-button>
         </form>
         @endcan
     </div>
