@@ -1,4 +1,9 @@
 <x-app-layout>
+    @if (session('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <span class="font-medium"> {{session('success')}}</span>
+          </div>
+        @endif
     <div class="relative overflow-x-auto w-auto mx-8 mshadow-md sm:rounded-lg flex justify-center p-10">
         <table class="w-1/3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -56,10 +61,11 @@
                 @endforeach
             </tbody>
         </table>
-{{--         @can('create', App\Models\Vuelo::class)
+        {{--         @can('create', App\Models\Vuelo::class)
         <form action="{{ route('vuelos.create') }}" class="flex justify-center mt-4 mb-4">
             <x-primary-button class="bg-cyan-500 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300">Insertar un nuevo vuelo</x-primary-button>
         </form>
         @endcan --}}
     </div>
+    {{$reservas->links()}}
 </x-app-layout>

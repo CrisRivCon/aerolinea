@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateReservaRequest;
 use App\Mail\VueloReservado;
 use App\Models\Reserva;
 use App\Models\Vuelo;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ReservaController extends Controller
 {
@@ -18,8 +20,12 @@ class ReservaController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Reserva::class);
+
+        $reservas = Reserva::where('user_id', '=', Auth::user()->id)
+                            ->paginate(5);
+
         return view('reservas.index', [
-            'reservas' => Auth::user()->reservas,
+            'reservas' => $reservas,
         ]);
     }
 
@@ -47,15 +53,20 @@ class ReservaController extends Controller
         $this->authorize('create', Reserva::class);
 
         $vuelo = Vuelo::find($request->vuelo_id);
+
         if($vuelo->completo()) {
             return redirect()->route('/');
         }
 
         $validate = $request->validated();
         $reserva = Reserva::create($validate);
+
+        $this->crear_pdf($reserva);
+
+
         Mail::to($request->user())->send(new VueloReservado($reserva));
 
-        return redirect()->route('reservas');
+        return redirect()->route('reservas')->with('success', 'Reserva creada correctamente!');
 
     }
 
@@ -91,5 +102,14 @@ class ReservaController extends Controller
     public function destroy(Reserva $reserva)
     {
         //
+    }
+
+    public function crear_pdf($reserva)
+    {
+        Storage::makeDirectory('public/pdf');
+        $pdf = Pdf::loadView('pdf.reserva', ['reserva' => $reserva]);
+        $nombre = $reserva->id.'.pdf';
+        $ruta = Storage::path('public/pdf/'. $nombre);
+        $pdf->save($ruta);
     }
 }

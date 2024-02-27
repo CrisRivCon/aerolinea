@@ -6,9 +6,11 @@ use App\Models\Reserva;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class VueloReservado extends Mailable
 {
@@ -51,6 +53,11 @@ class VueloReservado extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $ruta = Storage::path('public/pdf/'.$this->reserva->id.'.pdf');
+        return [
+            Attachment::fromPath($ruta)
+                        ->as('reserva.pdf')
+                        ->withMime('application/pdf'),
+        ];
     }
 }
