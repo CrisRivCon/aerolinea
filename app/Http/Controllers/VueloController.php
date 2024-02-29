@@ -25,11 +25,12 @@ class VueloController extends Controller
 
         $order_dir = $request->query('order_dir', 'asc');
         $vuelos = Vuelo::with(['aeropuertoOrigen', 'aeropuertoDestino', 'companya'])
-                        ->selectRaw('vuelos.*, companyas.nombre, aeropuertos.codigo as aero_cod,
+                        ->selectRaw('vuelos.*, companyas.nombre,
                                      (vuelos.plazas - (SELECT COUNT(reservas.id)
                                                         FROM reservas
-                                                        WHERE reservas.vuelo_id = vuelos.id)) as disponibles')
-                        ->leftJoin('aeropuertos', 'vuelos.origen_id', '=', 'aeropuertos.id')
+                                                        WHERE reservas.vuelo_id = vuelos.id)) as disponibles,
+                                    (SELECT aeropuertos.codigo FROM aeropuertos WHERE aeropuertos.id = origen_id) as origen_id,
+                                    (SELECT aeropuertos.codigo FROM aeropuertos WHERE aeropuertos.id = destino_id) as destino_id')
                         ->leftJoin('companyas', 'vuelos.companya_id', '=', 'companyas.id')
                         ->orderBy($order, $order_dir)
                         ->orderBy('vuelos.codigo')

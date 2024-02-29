@@ -19,13 +19,13 @@
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index', ['order' => 'aero_cod', 'order_dir' => order_dir($order == 'aero_cod', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Aeropuerto destino {{order_dir_arrow($order == 'aero_cod', $order_dir)}}
+                        <a href="{{ route('vuelos.index', ['order' => 'vuelos.destino_id', 'order_dir' => order_dir($order == 'vuelos.destino_id', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Aeropuerto destino {{order_dir_arrow($order == 'vuelos.destino_id', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <a href="{{ route('vuelos.index', ['order' => 'origen_id', 'order_dir' => order_dir($order == 'origen_id', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Aeropuerto origen {{order_dir_arrow($order == 'origen_id', $order_dir)}}
+                        <a href="{{ route('vuelos.index', ['order' => 'vuelos.origen_id', 'order_dir' => order_dir($order == 'vuelos.origen_id', $order_dir)]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            Aeropuerto origen {{order_dir_arrow($order == 'vuelos.origen_id', $order_dir)}}
                         </a>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -69,10 +69,13 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$vuelo->companya->nombre}}
                         </th><th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$vuelo->aeropuertoDestino->codigo}}
+                            @php
+                               // dd($vuelo)
+                            @endphp
+                            {{$vuelo->destino_id}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$vuelo->aeropuertoOrigen->codigo}}
+                            {{$vuelo->origen_id}}
 
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
